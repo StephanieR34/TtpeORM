@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Todo } from './entities/todo.entity';
-//import { AddTodoDto } from './dto/add-todo.dto';
+import { AddTodoDto } from './DTO/add-todo.dto';
 
 @Injectable()
 export class TodoService {
@@ -9,7 +9,10 @@ export class TodoService {
   getTodos(): Todo[] {
     return this.todos;
   }
-/*   addTodo(newTodo: AddTodoDto): Todo {
+
+
+  
+  addTodo(newTodo: AddTodoDto): Todo {
     const {name, description} = newTodo;
     let id;
     if (this.todos.length) {
@@ -26,7 +29,7 @@ export class TodoService {
     };
     this.todos.push(todo);
     return todo;
-  } */
+  }
 
   getTodoById(id: number): Todo {
     const todo = this.todos.find((actualTodo) => actualTodo.id === id);
@@ -46,7 +49,7 @@ export class TodoService {
     }
     // Sinon je vais déclencher une erreur
     return {
-      message : `Le todo d'id ${id} a été supprimé avec suucès`,
+      message : `Le todo d'id ${id} a été supprimé avec succès`,
       count: 1
     };
   }
