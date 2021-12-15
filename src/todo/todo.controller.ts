@@ -47,7 +47,6 @@ export class TodoController {
     deleteTodos(
         @Param(`id`, ParseIntPipe) id
     ){
-        console.log(typeof id);
         return this.todoService.deleteTodo(id);
 
     }
