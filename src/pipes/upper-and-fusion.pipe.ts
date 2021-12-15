@@ -9,6 +9,6 @@ export class UpperAndFusionPipe implements PipeTransform {
       return res;
     }
 
-    return entry.data;
+    return entry;
   }
 }
