@@ -5,10 +5,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { FirstMiddleware } from './middlewares/first.middleware';
 import { TodoModule } from './todo/todo.module';
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
-  imports: [TodoModule],
+  imports: [
+    TodoModule,
+    ConfigModule.forRoot({
+      isGlobal: true
+    })
+  ],
   controllers: [AppController],
   providers: [AppService],
   exports: [AppService],
@@ -22,3 +28,5 @@ export class AppModule implements NestModule{
       .apply(HelmetMiddleware).forRoutes("");
   }
 }
+
+

@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get,Head, Headers, HttpStatus, NotFoundException, Param, ParseIntPipe, Post, Put, Query, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get,Head, Headers, HttpStatus, NotFoundException, Param, ParseIntPipe, Post, Put, Query, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { Todo } from './entities/todo.entity';
 import { TodoService } from './todo.service';
 import { GetPaginatedTodoDto } from './DTO/get-paginated-todo.dto';
 import { AddTodoDto } from './DTO/add-todo.dto';
 import { UpperAndFusionPipe } from 'src/pipes/upper-and-fusion.pipe';
+import { DurationInterceptor } from 'src/interceptors/duration.interceptor';
 
 
 @Controller('todo')
