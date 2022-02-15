@@ -24,10 +24,27 @@ export class CvController {
     @Post()
     async addCv(
         @Body() addCvDto: AddCvDto
-    ): Promise<CvEntity> {
-        return await this.cvService.addCv(addCvDto);
-    }
-
+        ): Promise<CvEntity> {
+            return await this.cvService.addCv(addCvDto);
+        }
+        
+        
+    @Patch()
+    async updateCv2(
+        @Body() updateObject
+        ) {
+            const {updateCriteria, updateCvDto} = updateObject
+            return await this.cvService.updateCv2(updateCriteria, updateCvDto);
+        }
+        
+    @Delete(':id')
+    async deleteCv(
+        @Param('id', ParseIntPipe) id: number
+        ){
+            // return this.cvService.removeCv(id);
+            return this.cvService.softDeleteCv(id)
+        }
+        
     @Patch(':id')
     async updateCv(
         @Body() updateCvDto: UpdateCvDto,
@@ -35,29 +52,26 @@ export class CvController {
     ): Promise<CvEntity> {
         return await this.cvService.updateCv(id, updateCvDto);
     }
+            
+    @Get('stats/:max/:min')
+    async statsCvNumberByAge(
 
-    @Patch()
-    async updateCv2(
-        @Body() updateObject
-    ) {
-        const {updateCriteria, updateCvDto} = updateObject
-        return await this.cvService.updateCv2(updateCriteria, updateCvDto);
-    }
-
-    @Delete(':id')
-    async deleteCv(
-        @Param('id', ParseIntPipe) id: number
     ){
-        // return this.cvService.removeCv(id);
-        return this.cvService.softDeleteCv(id)
+        return await this.cvService.StatCvNumberByAge(50,25);
     }
-
+    
     @Get('recover/:id')
     async restoreCv(
         @Param('id', ParseIntPipe) id: number
     ) {
         return await this.cvService.restoreCv(id);
     }
+    @Get(':id')
+    async getCv(
+        @Param('id', ParseIntPipe) id
+    ): Promise<CvEntity>{
 
-    
+        return this.cvService.findCvById(id);
+
+    }
 }
