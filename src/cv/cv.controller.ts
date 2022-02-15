@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { CvService } from './cv.service';
 import { AddCvDto } from './dto/Add-cv.dto';
 import { UpdateCvDto } from './dto/update-cv.dto';
@@ -43,4 +43,21 @@ export class CvController {
         const {updateCriteria, updateCvDto} = updateObject
         return await this.cvService.updateCv2(updateCriteria, updateCvDto);
     }
+
+    @Delete(':id')
+    async deleteCv(
+        @Param('id', ParseIntPipe) id: number
+    ){
+        // return this.cvService.removeCv(id);
+        return this.cvService.softDeleteCv(id)
+    }
+
+    @Get('recover/:id')
+    async restoreCv(
+        @Param('id', ParseIntPipe) id: number
+    ) {
+        return await this.cvService.restoreCv(id);
+    }
+
+    
 }

@@ -13,6 +13,14 @@ export class CvService {
     ){
 
     }
+    async findCvById(id: number){
+        const cv = await this.cvRepository.findOne(id);
+        if(! cv) {
+            throw new NotFoundException(`le cv d'id ${id} n'existe pas`)
+        }
+        return cv;
+    }
+
 
     async getCvs(): Promise<CvEntity[]> {
         return await this.cvRepository.find();
@@ -35,5 +43,18 @@ export class CvService {
 
     updateCv2(updateCriteria, cv: UpdateCvDto) {
         return this.cvRepository.update(updateCriteria, cv)
+    }
+
+    async removeCv(id: number) {
+        const cvToRemove = await this.findCvById(id);
+;       return await this.cvRepository.remove(cvToRemove);
+    }
+
+    async softDeleteCv(id: number) {
+        return this.cvRepository.softDelete(id);
+    }
+
+    async restoreCv(id: number){
+        return this.cvRepository.restore(id)
     }
 }
